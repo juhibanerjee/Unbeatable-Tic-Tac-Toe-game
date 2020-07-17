@@ -1,5 +1,5 @@
 /*Code of Minmax here*/
-
+var player1turn = true;
 var board = [
 	[0, 0, 0],
 	[0, 0, 0],
@@ -171,6 +171,7 @@ function aiTurn() {
 
 /* main */
 function clickedCell(cell) {
+	console.log(cell)
 	var button = document.getElementById("btn-restart");
 	button.disabled = true;
 	var conditionToContinue = gameOverAll(board) == false && emptyCells(board).length > 0;
@@ -189,22 +190,23 @@ function clickedCell(cell) {
 	}
 	else{
 		if (conditionToContinue == true) {
+			var move1;
 		var x1 = cell.id.split("")[0];
 		var y1 = cell.id.split("")[1];
-		var move1 = setMove(x1, y1, HUMAN_P1);
-		if (move1 == true) {
-			cell.innerHTML = "X";
-			if (conditionToContinue){
-				var x2 = cell.id.split("")[0];
-				var y2 = cell.id.split("")[1];
-				var move2 = setMove(x2, y2, COMP_P2);
-				if (move2 == true)
-					cell.innerHTML = "O";
-				}
-			}
+		if(player1turn == true){
+			move1 = setMove(x1, y1, HUMAN_P1);
+			if(move1)
+				cell.innerHTML = "X";
+		}
+		else{
+			move1 = setMove(x1, y1, COMP_P2);
+			if(move1)
+				cell.innerHTML = "O";
+		}
+		player1turn = !player1turn;
 		}
 	}
-
+	
 	
 	if (gameOver(board, COMP_P2)) {
 		var lines;
