@@ -14,16 +14,12 @@ var PLAYER = null;
 /* Function to heuristic evaluation of state. */
 function evalute(state) {
 	var score = 0;
-
-	if (gameOver(state, COMP_P2)) {
+	if (gameOver(state, COMP_P2))
 		score = +1;
-	}
-	else if (gameOver(state, HUMAN_P1)) {
+	else if (gameOver(state, HUMAN_P1))
 		score = -1;
-	} else {
+	else
 		score = 0;
-	}
-
 	return score;
 }
 
@@ -39,7 +35,6 @@ function gameOver(state, player) {
 		[state[0][0], state[1][1], state[2][2]],
 		[state[2][0], state[1][1], state[0][2]],
 	];
-
 	for (var i = 0; i < 8; i++) {
 		var line = win_state[i];
 		var filled = 0;
@@ -66,21 +61,18 @@ function emptyCells(state) {
 				cells.push([x, y]);
 		}
 	}
-
 	return cells;
 }
 
 /* A move is valid if the chosen cell is empty */
 function validMove(x, y) {
-	var empties = emptyCells(board);
 	try {
-		if (board[x][y] == 0) {
+		if (board[x][y] == 0)
 			return true;
-		}
-		else {
+		else
 			return false;
-		}
-	} catch (e) {
+	}
+	catch (e){
 		return false;
 	}
 }
@@ -91,22 +83,18 @@ function setMove(x, y, player) {
 		board[x][y] = player;
 		return true;
 	}
-	else {
+	else
 		return false;
-	}
 }
 
 /* *** AI function that choice the best move *** */
-// Read more on https://github.com/Cledersonbc/tic-tac-toe-minimax/
 function minimax(state, depth, player) {
 	var best;
 
-	if (player == COMP_P2) {
+	if (player == COMP_P2)
 		best = [-1, -1, -1000];
-	}
-	else {
+	else
 		best = [-1, -1, +1000];
-	}
 
 	if (depth == 0 || gameOverAll(state)) {
 		var score = evalute(state);
@@ -121,7 +109,6 @@ function minimax(state, depth, player) {
 		state[x][y] = 0;
 		score[0] = x;
 		score[1] = y;
-
 		if (player == COMP_P2) {
 			if (score[2] > best[2])
 				best = score;
@@ -152,7 +139,6 @@ function aiTurn() {
 			depth = emptyCells(board).length;
 			break;
 	}
-
 	if (emptyCells(board).length == 9) {
 		x = parseInt(Math.random() * 3);
 		y = parseInt(Math.random() * 3);
@@ -177,37 +163,44 @@ function clickedCell(cell) {
 	var conditionToContinue = gameOverAll(board) == false && emptyCells(board).length > 0;
 
 	if (PLAYER == "1player") {
+		var first = "Human";
+		var second = "Computer";
 		if (conditionToContinue == true) {
-		var x = cell.id.split("")[0];
-		var y = cell.id.split("")[1];
-		var move = setMove(x, y, HUMAN_P1);
-		if (move == true) {
-			cell.innerHTML = "X";
-			if (conditionToContinue)
-				aiTurn();
+			var x = cell.id.split("")[0];
+			var y = cell.id.split("")[1];
+			var move = setMove(x, y, HUMAN_P1);
+			if (move == true) {
+				cell.innerHTML = "X";
+				if (conditionToContinue)
+					aiTurn();
 			}
 		}
 	}
 	else{
+		var first = "Player 1";
+		var second = "Player 2";
 		if (conditionToContinue == true) {
 			var move1;
-		var x1 = cell.id.split("")[0];
-		var y1 = cell.id.split("")[1];
-		if(player1turn == true){
-			move1 = setMove(x1, y1, HUMAN_P1);
-			if(move1)
-				cell.innerHTML = "X";
-		}
-		else{
-			move1 = setMove(x1, y1, COMP_P2);
-			if(move1)
-				cell.innerHTML = "O";
-		}
-		player1turn = !player1turn;
+			var x1 = cell.id.split("")[0];
+			var y1 = cell.id.split("")[1];
+			if(player1turn == true){
+				move1 = setMove(x1, y1, HUMAN_P1);
+				if (move1 == true){
+					cell.innerHTML = "X";
+					player1turn = !player1turn;
+				}
+			}
+			else{
+				move1 = setMove(x1, y1, COMP_P2);
+				if (move1 == true){
+					cell.innerHTML = "O";
+					player1turn = !player1turn;
+				}
+			}
 		}
 	}
-	
-	
+
+
 	if (gameOver(board, COMP_P2)) {
 		var lines;
 		var cell;
@@ -236,7 +229,7 @@ function clickedCell(cell) {
 		}
 
 		msg = document.getElementById("message");
-		msg.innerHTML = "You lose!";
+		msg.innerHTML =  second + " wins!";
 	}
 	if (gameOver(board, HUMAN_P1)) {
 		var lines;
@@ -266,11 +259,11 @@ function clickedCell(cell) {
 		}
 
 		msg = document.getElementById("message");
-		msg.innerHTML = "You win!";
+		msg.innerHTML = first + " wins!";
 	}
 	if (emptyCells(board).length == 0 && !gameOverAll(board)) {
 		var msg = document.getElementById("message");
-		msg.innerHTML = "Draw!";
+		msg.innerHTML = "It's a draw!";
 	}
 	if (gameOverAll(board) == true || emptyCells(board).length == 0) {
 		button.value = "Restart";
@@ -280,14 +273,17 @@ function clickedCell(cell) {
 
 /* Restart the game*/
 function restartBnt(button) {
-	if (button.value == "Start AI") {
+	if (button.value == "AI starts") {
 		aiTurn();
+		button.disabled = true;
+	}
+	if (button.value == "Player 2 starts") {
+		player1turn = false;
 		button.disabled = true;
 	}
 	else if (button.value == "Restart") {
 		var htmlBoard;
 		var msg;
-
 		for (var x = 0; x < 3; x++) {
 			for (var y = 0; y < 3; y++) {
 				board[x][y] = 0;
@@ -296,14 +292,16 @@ function restartBnt(button) {
 				htmlBoard.innerHTML = "";
 			}
 		}
-		button.value = "Start AI";
 		msg = document.getElementById("message");
 		msg.innerHTML = "";
+		msg1 = document.getElementById("player_msg");
+		msg1.innerHTML =  "";
 		$(".players").attr("disabled", false).removeClass("active-player");
 		$(".diff-level").attr("disabled", false).removeClass("active");
 		$("#diff-buttons").hide();
 		$("#tab-tic-tac-toe").hide();
 		$("#btn-restart").hide();
+		player1turn = true;
 	}
 }
 
@@ -312,13 +310,20 @@ $(".diff-level").click(function(){
 	$(".diff-level").attr("disabled", true).removeClass("active");
 	$(this).addClass("active");
 	$("#tab-tic-tac-toe").show();
+	document.getElementById("btn-restart").value = "AI starts";
 	$("#btn-restart").show();
+	msg = document.getElementById("player_msg");
+	msg.innerHTML =  "Human: X"+"<br \n>"+"Computer: O";
+
 })
 
 $("#2players").click(function(){
 	$("#diff-buttons").hide();
 	$("#tab-tic-tac-toe").show();
+	document.getElementById("btn-restart").value = "Player 2 starts";
 	$("#btn-restart").show();
+	msg = document.getElementById("player_msg");
+	msg.innerHTML =  "Player 1: X"+"<br \n>"+"Player 2: O";
 })
 
 $("#1player").click(function(){
@@ -327,7 +332,6 @@ $("#1player").click(function(){
 
 $(".players").click(function(){
 	PLAYER = $(this).attr("id");
-	console.log(PLAYER);
 	$(".players").attr("disabled", true).removeClass("active-player");
 	$(this).addClass("active-player");
 })
