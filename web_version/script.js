@@ -1,4 +1,4 @@
-/*Code of Minmax here*/
+/*Tic Tac Toe Game with 1 player and 2 players*/
 var player1turn = true;
 var board = [
 	[0, 0, 0],
@@ -11,7 +11,7 @@ var COMP_P2 = +1;
 var LEVEL = null;
 var PLAYER = null;
 
-/* Function to heuristic evaluation of state. */
+/*Function to find the state and returning the score*/
 function evalute(state) {
 	var score = 0;
 	if (gameOver(state, COMP_P2))
@@ -23,7 +23,7 @@ function evalute(state) {
 	return score;
 }
 
-/* This function tests if a specific player wins */
+/* Function that stores all the winning possibilities*/
 function gameOver(state, player) {
 	var win_state = [
 		[state[0][0], state[0][1], state[0][2]],
@@ -48,11 +48,12 @@ function gameOver(state, player) {
 	return false;
 }
 
-/* This function test if the human or computer wins */
+/* Function to see whether anybody has won*/
 function gameOverAll(state) {
 	return gameOver(state, HUMAN_P1) || gameOver(state, COMP_P2);
 }
 
+/*Function that returns the empty cells*/
 function emptyCells(state) {
 	var cells = [];
 	for (var x = 0; x < 3; x++) {
@@ -64,7 +65,7 @@ function emptyCells(state) {
 	return cells;
 }
 
-/* A move is valid if the chosen cell is empty */
+/* Function to check whether a move is a valid move*/
 function validMove(x, y) {
 	try {
 		if (board[x][y] == 0)
@@ -77,7 +78,7 @@ function validMove(x, y) {
 	}
 }
 
-/* Set the move on board, if the coordinates are valid */
+/* Function to set the move only if that move is a valid move */
 function setMove(x, y, player) {
 	if (validMove(x, y)) {
 		board[x][y] = player;
@@ -87,7 +88,7 @@ function setMove(x, y, player) {
 		return false;
 }
 
-/* *** AI function that choice the best move *** */
+/* The minimax algorithm for 1 player only */
 function minimax(state, depth, player) {
 	var best;
 
@@ -123,7 +124,7 @@ function minimax(state, depth, player) {
 }
 
 
-/* It calls the minimax function */
+/*Function to find where AI will place its move by calling the minimax algorithm*/
 function aiTurn() {
 	var x, y;
 	var move;
@@ -156,7 +157,7 @@ function aiTurn() {
 	}
 }
 
-/* main */
+/* The main function*/
 function clickedCell(cell) {
 	console.log(cell)
 	var button = document.getElementById("btn-restart");
@@ -201,7 +202,7 @@ function clickedCell(cell) {
 		}
 	}
 
-
+	/*Game over check for computer if 1 player and p2 for 2 players*/
 	if (gameOver(board, COMP_P2)) {
 		var lines;
 		var cell;
@@ -232,6 +233,7 @@ function clickedCell(cell) {
 		msg = document.getElementById("message");
 		msg.innerHTML =  second + " wins!";
 	}
+	/*Game over check for human if 1 player and p1 for 2 players*/
 	if (gameOver(board, HUMAN_P1)) {
 		var lines;
 		var cell;
@@ -272,7 +274,7 @@ function clickedCell(cell) {
 	}
 }
 
-/* Restart the game*/
+/* Function to restart the game*/
 function restartBnt(button) {
 	if (button.value == "Computer starts") {
 		aiTurn();
@@ -305,7 +307,7 @@ function restartBnt(button) {
 		player1turn = true;
 	}
 }
-
+/*If the difficulty level buttons are clicked*/
 $(".diff-level").click(function(){
 	LEVEL = $(this).attr("id").split("-")[1];
 	$(".diff-level").attr("disabled", true).removeClass("active");
