@@ -21,7 +21,7 @@ The following web page is designed for desktop view and has not been made respon
 
 
 ### Backend Application in Python
-The backend code for the following game is present in Python. This code works on the console and is not deployed. 
+The backend code for the following game is present in Python. This code works on the console and is not deployed. The following program can be run by typing python src.py on the cosole.
 
 
 ## Technical Details
@@ -44,4 +44,4 @@ The backend code for the following game is present in Python. This code works on
     * score = minimax(state, depth-1, -player) : state stores the current state of the board, depth-1 stores the index of the next step and -player keeps on             alternating MAX and MIN.
    The move placed on the board is undo and the row and column are stored. The current score is compared with the best score. For MAX player a bigger score will      be achieved while for MIN player a lower score will be achieved. At last, the best score is returned.
 
-* **function **
+* **function aiTurn()** : 
