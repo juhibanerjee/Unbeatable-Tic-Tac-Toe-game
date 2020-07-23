@@ -21,7 +21,8 @@ The following web page is designed for desktop view and has not been made respon
 
 
 ### Backend Application in Python
-The backend code for the following game is present in Python. This code works on the console and is not deployed. The following program can be run by typing python src.py on the cosole.
+The backend code for the following game is present in Python. This code works on the console and is not deployed. The program can be run by
+```python src.py```.
 
 
 ## Technical Details
