@@ -39,7 +39,9 @@ The backend code for the following game is present in Python. This code works on
 * **function setMove(x,y,player)** : If the validMove(x,y) is given by any player then it returns true, else false.
 
 * **function minimax(state,depth,player)** : The Minimax algorithm (used only for 1 player) is similar to backtracking algorithm. It is generally used to find the    optimal solution or the optimal move of a player, assuming that the other player also plays optimally. The algorithm searches recursively  for the best move      that leads the MAX player to win. For each valid move, it plays alternatively (MAX and MIN) until it finds a terminal state.
-   
+   The Minimax Algorithm -
+   ![alt-text][logo]
+   [logo] :https://github.com/juhibanerjee/Unbeatable-Tic-Tac-Toe-game/blob/master/image/minimax.png "Minimax Algorithm tree"
    
    In the following function both players start with their worst case. If the player is MAX then its score is -1000. If the player is MIN then its score is +1000.    The best move[-1,-1] is for the best row and best column. If the depth=0, then the board does not have any empty cell to play, or if any player wins then +1      will be returned for MAX and -1 for MIN. If it is a draw then it returns 0.The recursion part of the function - 
     * x contains the cell row index and y contains the cell column index
