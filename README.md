@@ -42,6 +42,6 @@ The backend code for the following game is present in Python. This code works on
 In the following function both players start with their worst case. If the player is MAX then its score is -1000. If the player is MIN then its score is +1000. The best move[-1,-1] is for the best row and best column. If the depth=0, then the board does not have any empty cell to play, or if any player wins then +1 will be returned for MAX and -1 for MIN. If it is a draw then it returns 0.
 
 The recursion part - 
-    * x contains the cell row index and y contains the cell column index
-    * state[x][y] receives the MAX or MIN player
-    * score = minimax(state, depth-1, -player) : state stores the current state of the board, depth-1 stores the index of the next step and -player keeps on             alternating MAX and MIN.
+    1. x contains the cell row index and y contains the cell column index
+    2. state[x][y] receives the MAX or MIN player
+    3. score = minimax(state, depth-1, -player) : state stores the current state of the board, depth-1 stores the index of the next step and -player keeps on             alternating MAX and MIN.
