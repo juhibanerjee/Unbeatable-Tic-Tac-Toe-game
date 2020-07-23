@@ -25,4 +25,14 @@ The backend code for the following game is present in Python. This code works on
 
 
 ## Technical Details
+* function evaluate (state) : The following function finds the score of the given move and returns it. 
+
+* function gameOver(state, player) : The following function stores all the winning possibilities and returns true if any player has won.
+
+* function gameOverAll(state) : This function calls the gameOver(state,player) function to see who has won - human/player1 or computer/player2.
+
+* function emptyCells(state) : It stores the number of empty cells present after each move and returns it in the form of a list.
+
+* function validMove(x,y) : Function to check whether any move given is a valid move or not. If board[x][y] is blank, then it returns true, else false.
+
 
