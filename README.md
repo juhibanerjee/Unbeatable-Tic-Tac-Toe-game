@@ -47,4 +47,17 @@ The backend code for the following game is present in Python. This code works on
     * score = minimax(state, depth-1, -player) : state stores the current state of the board, depth-1 stores the index of the next step and -player keeps on             alternating MAX and MIN.
    The move placed on the board is undo and the row and column are stored. The current score is compared with the best score. For MAX player a bigger score will      be achieved while for MIN player a lower score will be achieved. At last, the best score is returned.
 
-* **function aiTurn()** : 
+* **function aiTurn()** : This function works only for 1 player as well. The depth variable depends upon the difficulty level chosen by the player. if depth=1 then it is easy, depth=5 then it is medium and when depth=the length of the number of empty cells then it is hard/unbeatable. This function calls the minimax function when AI is to make a move.
+
+* **function clickedCell(cell)** : This function is the main function of the program. If the user chooses '1 player' then first=Human and second=Computer. If the user chooses '2players' then first=Player 1 and second=Player 2. The functions are called accordingly and the game continues till the game gets over.
+
+* **restartBnt(button)** : The function is for asking the user who will start first and to reset the screen for the next game.
+
+
+## Deploying Website on Heroku
+The game has been deployed using Heroku. The steps followed can be found [here](https://blog.teamtreehouse.com/deploy-static-site-heroku).
+
+## References
+* https://github.com/Cledersonbc/tic-tac-toe-minimax
+* https://blog.teamtreehouse.com/deploy-static-site-heroku
+* https://towardsdatascience.com/tic-tac-toe-creating-unbeatable-ai-with-minimax-algorithm-8af9e52c1e7d
